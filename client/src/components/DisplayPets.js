@@ -37,12 +37,10 @@ function DisplayPets() {
         }
     };
     
-        
     //Realiza la actualizacion, la ruta  /updatePet/${id}  tiene que estar configurado en el archivo App.js 
     const handleUpdate = (id) => {
         navigate(`/updatePet/${id}`);
     };
-
 
     const handleAdopt = (id) => {
         navigate(`/adopt/${id}`);
@@ -60,9 +58,9 @@ function DisplayPets() {
                         <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" 
                                 data-bs-toggle="dropdown" aria-expanded="false">&nbsp;Type Pet&nbsp;&nbsp;</button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a className="dropdown-item" href="#" onClick={handleFilterChange} value = "">All pets</a></li>
-                            <li><a className="dropdown-item" href="#" onClick={handleFilterChange} value = "cat">Cat</a></li>
-                            <li><a className="dropdown-item" href="#" onClick={handleFilterChange} value = "dog">Dog</a></li>
+                            <li><button className="dropdown-item" onClick={handleFilterChange} value="">All pets</button></li>
+                            <li><button className="dropdown-item" onClick={handleFilterChange} value="cat">Cat</button></li>
+                            <li><button className="dropdown-item" onClick={handleFilterChange} value="dog">Dog</button></li>
                         </ul>
                     </div>
                     <Link to="/addPet" className="btn btn-primary mb-4">Add New Pet</Link>
@@ -91,13 +89,11 @@ function DisplayPets() {
                                 <img src={pet.imagePath} alt={pet.namePet}
                                      style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
                             </td>
-                           
                             <td className="text-center">
                                 <button className="btn btn-warning me-2" onClick={() => handleUpdate(pet._id)}>Update</button>
                                 <button className="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                     onClick={() => setSelectedPet(pet._id)} >Delete
                                 </button>
-                                
                                 <button className="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="top" 
                                         title="Click here to adopt this pet" onClick={() => handleAdopt(pet._id)}>Adopt me</button>
                             </td>
