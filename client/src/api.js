@@ -1,3 +1,5 @@
+//Miguel Poma
+//c0920822
 import axios from 'axios';
 
 /*const API = axios.create({
@@ -10,16 +12,16 @@ const API = axios.create({
 
 export default API;
 
-// Nueva función para obtener usuarios en formato dropdown
+
 export const fetchAdoptersForDropdown = async () => {
     try {
         const response = await API.get('/users');
         return response.data.map(user => ({
             value: user._id,
-            label: `${user.firstName} ${user.lastName}`, // Combina nombres para mostrar en el dropdown
+            label: `${user.firstName} ${user.lastName}`,
         }));
     } catch (error) {
         console.error('Error fetching adopters:', error);
-        throw error; // Manejo de errores
+        throw error; 
     }
 };

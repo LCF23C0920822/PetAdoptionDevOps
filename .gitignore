@@ -1,8 +1,6 @@
 # Backend dependencies
 node_modules/
 
-# Frontend dependencies
-
 
 # Miscellaneous
 *.DS_Store
