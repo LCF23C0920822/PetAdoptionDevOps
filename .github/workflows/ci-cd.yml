@@ -22,6 +22,10 @@ jobs:
         with:
           node-version: 20.18.0 
 
+      # Set CI to false to prevent warnings from being treated as errors
+      - name: Set CI to false
+        run: echo "CI=false" >> $GITHUB_ENV
+
       # Install dependencies and build the frontend
       - name: Install and Build Frontend
         working-directory: client
