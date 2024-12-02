@@ -44,11 +44,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up Node.js
+      # Set up Node.js version 20
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 20.18.0  
 
       # Run tests
       - name: Run Tests
