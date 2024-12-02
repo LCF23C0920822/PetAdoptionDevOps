@@ -54,6 +54,10 @@ jobs:
         with:
           node-version: 20.18.0  
 
+      # Install dependencies (including dev dependencies like jest)
+      - name: Install Dependencies
+        run: npm install
+
       # Run tests
       - name: Run Tests
         run: npm test
