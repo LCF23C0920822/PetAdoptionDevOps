@@ -76,13 +76,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-      # Add SSH passphrase non-interactively
-      - name: Add SSH Passphrase
-        env:
-          SSH_AUTH_SOCK: ${{ env.SSH_AUTH_SOCK }}
-        run: |
-          echo "${{ secrets.EC2_SSH_KEY_PASSPHRASE }}" | ssh-add /dev/stdin
-
       # Copy project to EC2 server
       - name: Deploy to EC2
         run: |
