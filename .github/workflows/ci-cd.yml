@@ -82,11 +82,11 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H 54.85.23.194 >> ~/.ssh/known_hosts
 
-      # Copy project to EC2 server
+      # Copy project to EC2 server (absolute path for clarity)
       - name: Deploy to EC2
         run: |
           ssh ec2-user@54.85.23.194 "rm -rf ~/PetAdoptionDevOps/*"
-          scp -r . ec2-user@54.85.23.194:~/PetAdoptionDevOps/
+          scp -r ./ ec2-user@54.85.23.194:~/PetAdoptionDevOps/
 
       # Restart the application on EC2
       - name: Restart Application on EC2
