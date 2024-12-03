@@ -76,12 +76,12 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-      # Provide the passphrase to the SSH agent
+      # Add SSH passphrase non-interactively
       - name: Add SSH Passphrase
-        run: |
-          echo "${{ secrets.EC2_SSH_KEY_PASSPHRASE }}" | ssh-add -
         env:
-          DISPLAY: :0
+          SSH_AUTH_SOCK: ${{ env.SSH_AUTH_SOCK }}
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY_PASSPHRASE }}" | ssh-add /dev/stdin
 
       # Copy project to EC2 server
       - name: Deploy to EC2
