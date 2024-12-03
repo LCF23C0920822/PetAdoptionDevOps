@@ -82,7 +82,16 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H 54.82.5.224 >> ~/.ssh/known_hosts
 
-      # Copy project to EC2 server and then copy only the content of the current directory to EC2 
+      # Install Node.js, npm, and PM2 on EC2
+      - name: Install Node.js, npm, and PM2
+        run: |
+          ssh ec2-user@54.82.5.224 << 'EOF'
+          curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
+          sudo yum install -y nodejs
+          sudo npm install -g pm2
+          EOF
+
+      # Copy project to EC2 server and then copy only the content of the current directory to EC2
       - name: Deploy to EC2
         run: |
           ssh ec2-user@54.82.5.224 "rm -rf ~/PetAdoptionDevOps/*"
