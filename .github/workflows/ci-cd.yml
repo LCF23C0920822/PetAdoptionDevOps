@@ -1,4 +1,4 @@
-name: CI/CD Pipeline for DevOps Project
+name: CI/CD Pipeline for DevOps Project 
 
 on:
   push:
@@ -70,18 +70,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up SSH key to connect to EC2
+      # Set up SSH key to connect to EC2 (use the new key without passphrase)
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
-
-      # Add SSH passphrase non-interactively
-      - name: Add SSH Passphrase
-        env:
-          SSH_AUTH_SOCK: ${{ env.SSH_AUTH_SOCK }}
-        run: |
-          echo "${{ secrets.EC2_SSH_KEY_PASSPHRASE }}" | ssh-add /dev/stdin
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}  # La clave SSH sin passphrase
 
       # Copy project to EC2 server
       - name: Deploy to EC2
