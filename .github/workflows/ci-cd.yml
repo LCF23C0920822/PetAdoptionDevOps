@@ -1,4 +1,4 @@
-name: CI/CD Pipeline for DevOps Project 
+name: CI/CD Pipeline for DevOps Project
 
 on:
   push:
@@ -70,23 +70,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up SSH key to connect to EC2 (use the new key without passphrase)
+      # Set up SSH key to connect to EC2
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}  # La clave SSH sin passphrase
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-      # Add EC2 host to known_hosts
-      - name: Add EC2 host to known_hosts
+      # Add SSH passphrase non-interactively
+      - name: Add SSH Passphrase
+        env:
+          SSH_AUTH_SOCK: ${{ env.SSH_AUTH_SOCK }}
         run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H 54.85.23.194 >> ~/.ssh/known_hosts
+          echo "${{ secrets.EC2_SSH_KEY_PASSPHRASE }}" | ssh-add /dev/stdin
 
-      # Copy project to EC2 server (absolute path for clarity)
+      # Copy project to EC2 server
       - name: Deploy to EC2
         run: |
           ssh ec2-user@54.85.23.194 "rm -rf ~/PetAdoptionDevOps/*"
-          scp -r ./ ec2-user@54.85.23.194:~/PetAdoptionDevOps/
+          scp -r $PWD ec2-user@54.85.23.194:~/PetAdoptionDevOps/
 
       # Restart the application on EC2
       - name: Restart Application on EC2
