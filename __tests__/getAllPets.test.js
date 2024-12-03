@@ -1,3 +1,4 @@
+require('dotenv').config(); // Load environment variables from .env
 const mongoose = require('mongoose');
 const Pet = require('../models/Pet'); // Asegúrate de que la ruta al modelo Pet sea correcta
 
