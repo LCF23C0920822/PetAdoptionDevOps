@@ -80,18 +80,18 @@ jobs:
       - name: Add EC2 to known hosts
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H 54.85.23.194 >> ~/.ssh/known_hosts
+          ssh-keyscan -H 98.81.244.21 >> ~/.ssh/known_hosts
 
-      # Copy project to EC2 server
+      # Copy project to EC2 server and then copy only the content of the current directory to EC2 
       - name: Deploy to EC2
         run: |
-          ssh ec2-user@54.85.23.194 "rm -rf ~/PetAdoptionDevOps/*"
-          scp -r $PWD ec2-user@54.85.23.194:~/PetAdoptionDevOps/
-
+          ssh ec2-user@98.81.244.21 "rm -rf ~/PetAdoptionDevOps/*"
+          scp -r $PWD/* ec2-user@98.81.244.21:~/PetAdoptionDevOps/
+          
       # Restart the application on EC2
       - name: Restart Application on EC2
         run: |
-          ssh ec2-user@54.85.23.194 << 'EOF'
+          ssh ec2-user@98.81.244.21 << 'EOF'
           cd ~/PetAdoptionDevOps
           npm install
           pm2 stop all || true
